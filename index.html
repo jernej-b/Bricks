@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick Breaker Game</title>
+    <style>
+        canvas { background: #eee; display: block; margin: auto; cursor: none; }
+        body { text-align: center; font-family: Arial, sans-serif; }
+        #controls { margin: 10px; }
+        #stats { 
+            margin: 10px; 
+            font-size: 24px; 
+            display: flex; 
+            justify-content: space-around; 
+            max-width: 720px; 
+            margin-left: auto; 
+            margin-right: auto;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div id="controls">
+        <button onclick="startGame()">Play</button>
+        <!-- Removed End button -->
+        <select id="levelSelect" onchange="changeLevel()">
+            <option value="1">Level 1</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>
+        </select>
+    </div>
+    <div id="stats">
+        <span id="score">Score: 0</span>
+        <span id="time">Time: 0s</span>
+        <span id="level">Level: 1</span>
+        <span id="highScore">High: 0</span>
+    </div>
+    <!-- Increased height from 480 to 720 (50% increase) -->
+    <canvas id="myCanvas" width="720" height="720"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
