@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick Breaker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="imgs/ball.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <h1>Brick Breaker</h1>
+    
+    <div class="game-container">
+        <div class="game-board">
+            <canvas id="canvas" width="500" height="700"></canvas>
+        </div>
+        
+        <div class="side-panel">
+            <div class="game-info">
+                <div>Score: <span id="tocke">0</span></div>
+                <div>Time: <span id="cas">00:00</span></div>
+                <div>Level: <span id="level">1</span></div>
+                <div>Lives: <span id="lives">3</span></div>
+            </div>
+            
+            <div class="controls">
+                <button id="play">Start Game</button>
+                <button id="pause" disabled>Pause</button>
+            </div>
+            
+            <div class="high-scores">
+                <h3>High Scores</h3>
+                <ol id="high-scores"></ol>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <svg>
+  <filter id="chromatic-aberration">
+    <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" in="SourceGraphic" result="red"/>
+    <feOffset in="red" dx="-2" dy="0" result="redOffset"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" in="SourceGraphic" result="green"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" in="SourceGraphic" result="blue"/>
+    <feOffset in="blue" dx="2" dy="0" result="blueOffset"/>
+    <feBlend mode="screen" in="redOffset" in2="green" result="rg"/>
+    <feBlend mode="screen" in="rg" in2="blueOffset" result="rgb"/>
+  </filter>
+</svg>
+</body>
+</html>

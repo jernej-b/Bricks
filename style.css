@@ -1,0 +1,243 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --primary: #ff2d75;
+  --secondary: #00f3ff;
+  --accent: #ffeb3b;
+  --dark: #0a0a1a;
+  --light: #e0e0ff;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  background: linear-gradient(135deg, var(--dark), #1a1a2e);
+  color: var(--light);
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+h1 {
+  color: var(--primary);
+  text-shadow: 0 0 10px rgba(255, 45, 117, 0.7);
+  margin: 20px 0 40px;
+  font-size: 2.5rem;
+  text-align: center;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+}
+
+.game-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.game-board {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+  border: 2px solid var(--secondary);
+}
+
+/* Chromatic aberration effect */
+.game-board::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  z-index: -1;
+  filter: url('#chromatic-aberration');
+}
+
+#canvas {
+  display: block;
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  min-width: 280px;
+}
+
+.game-info {
+  background: rgba(10, 10, 26, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+  border: 1px solid var(--secondary);
+  backdrop-filter: blur(5px);
+}
+
+.game-info div {
+  margin-bottom: 15px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-info span {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.controls button {
+  padding: 12px 0;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#play {
+  background: var(--primary);
+  color: white;
+}
+
+#play:hover {
+  box-shadow: 0 0 15px rgba(255, 45, 117, 0.7);
+  transform: translateY(-2px);
+}
+
+#pause {
+  background: var(--secondary);
+  color: var(--dark);
+}
+
+#pause:hover {
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.7);
+  transform: translateY(-2px);
+}
+
+.high-scores {
+  background: rgba(10, 10, 26, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+  border: 1px solid var(--secondary);
+  backdrop-filter: blur(5px);
+}
+
+.high-scores h3 {
+  margin-top: 0;
+  color: var(--secondary);
+  border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+  padding-bottom: 10px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+#high-scores {
+  padding-left: 20px;
+  list-style-type: none;
+  margin: 0;
+}
+
+#high-scores li {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: var(--light);
+  position: relative;
+  padding-left: 25px;
+}
+
+#high-scores li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+/* Chromatic aberration SVG filter */
+svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .game-container {
+    flex-direction: column;
+  }
+  
+  .side-panel {
+    width: 100%;
+  }
+  
+  #canvas {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Glow animations */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+  }
+}
+
+.game-board {
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
