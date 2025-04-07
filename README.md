@@ -1,4 +1,4 @@
-**BRICK BRAKER**
+# BRICK BRAKER
 ## 🎮 How to Play
 
 ### Controls:
