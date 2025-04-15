@@ -1,10 +1,10 @@
 // Game variables
 var x = 250;
-var y = 750;
+var y = 550;
 var dx = 0;
 var dy = 0;
 var WIDTH = 500;
-var HEIGHT = 1050;
+var HEIGHT = 850;
 var r = 20;
 var ctx;
 var paddlex;
