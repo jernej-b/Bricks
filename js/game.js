@@ -8,6 +8,7 @@ var sounds = {
 var canvas, ctx;
 var WIDTH = 600, HEIGHT = 400;
 var animationId;
+var timerInterval;
 
 // Game objects
 var ballImg = new Image();
@@ -22,7 +23,38 @@ var paddleColor = '#666';
 
 // Game state
 var gameActive = false;
+var seconds = 0; // Timer variable
 
+// Timer functions
+function updateTimer() {
+    if (gameActive) {
+        seconds++;
+        displayTime();
+    }
+}
+
+function displayTime() {
+    const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const secs = (seconds % 60).toString().padStart(2, '0');
+    const timeElement = document.getElementById('cas');
+    if (timeElement) timeElement.textContent = `${mins}:${secs}`;
+}
+
+function resetTimer() {
+    seconds = 0;
+    displayTime();
+}
+
+function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+}
+
+// Game initialization
 function initSounds() {
     sounds.music.loop = true;
     sounds.music.volume = 0.3;
@@ -51,7 +83,7 @@ function init() {
     initPaddle();
     initBricks();
     initScore();
-    initTimer();
+    resetTimer();
     
     document.getElementById('resetBtn').addEventListener('click', resetGame);
     document.getElementById('scoreboardBtn').addEventListener('click', showScoreboard);
@@ -59,6 +91,7 @@ function init() {
     showStartScreen();
 }
 
+// Game drawing functions
 function draw() {
     if (!gameActive) return;
     
@@ -97,6 +130,7 @@ function drawPaddle() {
     ctx.fill();
 }
 
+// Collision handling
 function handleWallCollisions() {
     if (x + dx > WIDTH - r || x + dx < r) {
         dx = -dx;
@@ -117,14 +151,16 @@ function handlePaddleCollision() {
     }
 }
 
+// Game state management
 function gameOver() {
     gameActive = false;
+    stopTimer();
     cancelAnimationFrame(animationId);
     sounds.music.pause();
     
     Swal.fire({
         title: 'GAME OVER',
-        html: `<p>Score: ${score}</p><p>Level: ${level}</p>`,
+        html: `<p>Score: ${score}</p><p>Level: ${level}</p><p>Time: ${getFormattedTime()}</p>`,
         confirmButtonText: 'CLOSE',
         showCancelButton: true,
         cancelButtonText: 'NEW GAME',
@@ -136,6 +172,12 @@ function gameOver() {
             addToScoreboard();
         }
     });
+}
+
+function getFormattedTime() {
+    const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const secs = (seconds % 60).toString().padStart(2, '0');
+    return `${mins}:${secs}`;
 }
 
 function resetGame() {
@@ -152,6 +194,7 @@ function resetGame() {
     resetScore();
     resetTimer();
     gameActive = true;
+    startTimer();
     cancelAnimationFrame(animationId);
     animationId = requestAnimationFrame(draw);
 }
